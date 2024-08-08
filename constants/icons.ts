@@ -11,8 +11,9 @@ import logout from "../assets/icons/logout.png";
 import eyeHide from "../assets/icons/eye-hide.png";
 import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
+import { ImageSourcePropType } from "react-native";
 
-export default {
+const icons:{[key:string]:ImageSourcePropType} = {
   play,
   bookmark,
   home,
@@ -27,3 +28,5 @@ export default {
   eyeHide,
   eye,
 };
+
+export default icons
