@@ -26,6 +26,7 @@ const CustomButton = ({
       )}
       activeOpacity={0.7}
       onPress={handlePress}
+      disabled={isLoading}
     >
       <Text className={cn("text-primary font-psemibold text-lg", textStyles)}>
         {title}

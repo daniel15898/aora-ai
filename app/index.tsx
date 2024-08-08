@@ -10,6 +10,7 @@ import { Redirect, router } from "expo-router";
 const App = () => {
 
   const handleEmailPress = () =>{
+    
     router.push("/sign-in")
   }
 
