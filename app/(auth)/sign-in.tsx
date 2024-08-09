@@ -9,7 +9,7 @@ import { Link } from "expo-router";
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const submitForm = () => {};
+  const submit = () => {};
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -39,7 +39,7 @@ const SignIn = () => {
           />
           <CustomButton
             title="Sign In"
-            handlePress={submitForm}
+            handlePress={submit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
           />
