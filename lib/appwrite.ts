@@ -10,6 +10,15 @@ export const appwriteConfig = {
   storageId: "66b610f40018e357fc7c",
 };
 
+const {endpoint,
+  platform,
+  projectId,
+  databaseId,
+  userCollectionId,
+  videoCollectionId,
+  storageId,
+  } = appwriteConfig
+
 // Init your React Native SDK
 const client = new Client();
 
@@ -88,5 +97,16 @@ export async function signOut() {
     return session;
   } catch (error:any) {
     throw new Error(error.message);
+  }
+}
+
+export const getAllPosts = async () =>{
+  try {
+    const posts = await databases.listDocuments(databaseId,videoCollectionId)
+    
+    return posts.documents
+  } catch (error:any) {
+    throw new Error(error.message)
+    
   }
 }

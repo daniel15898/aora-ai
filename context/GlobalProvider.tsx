@@ -12,16 +12,8 @@ export type GlobalContextDataType = {
   loading: boolean;
 };
 
-const GlobalContext = createContext<GlobalContextDataType|undefined>(undefined);
-export const useGlobalContext = () => {
-  const data = useContext(GlobalContext);
-  if(data){
-    return data
-  }
-  else{
-    throw new Error("you must use this hook under the GlobalContext provider")
-  }
-}
+export const GlobalContext = createContext<GlobalContextDataType|undefined>(undefined);
+
 
 const GlobalProvider = ({ children }: { children: React.JSX.Element }) => {
   const [isLogged, setIsLogged] = useState(false);
