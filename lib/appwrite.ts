@@ -98,7 +98,7 @@ export const getCurrentUser = async () => {
   }
 };
 
-// Sign Out
+
 export async function signOut() {
   try {
     const session = await account.deleteSession("current");
@@ -126,5 +126,32 @@ export const getLatestPosts = async () => {
     return posts.documents;
   } catch (error: any) {
     throw new Error(error.message);
+  }
+};
+
+export const searchPosts = async (query: string) => {
+  try {
+    console.log(query);
+    
+    const posts = await databases.listDocuments(databaseId, videoCollectionId, [
+      Query.search("title", query),
+    ]);
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const getUserPosts = async (userId: string) => {
+  try {
+  
+    console.log(userId);
+    
+    const posts = await databases.listDocuments(databaseId, videoCollectionId, [
+      Query.equal("creator", userId),
+    ]);
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error);
   }
 };

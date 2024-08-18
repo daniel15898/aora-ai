@@ -9,6 +9,7 @@ const useAppwrite = (fn:Function) => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
+     
       const res = await fn();
       setData(res);
     } catch (error: any) {

@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { Models } from "react-native-appwrite";
 import { icons } from "@/constants";
+import { ResizeMode, Video } from "expo-av";
 
 type VideoCardPropsType = {
   video: Models.Document;
@@ -45,12 +46,21 @@ const VideoCard = ({
         </View>
       </View>
       {play ? (
-        <Text className="text-white">Playing</Text>
+        <Video
+          source={{
+            uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+          }}
+          className="w-full h-60 rounded-xl mt-3"
+          resizeMode={ResizeMode.COVER}
+          useNativeControls
+          shouldPlay
+          
+        />
       ) : (
         <TouchableOpacity
           className="w-full h-60 rounded-xl mt-3 relative justify-center items-center"
           activeOpacity={0.7}
-          onPress={()=>setPlay(true)}
+          onPress={() => setPlay(true)}
         >
           <Image
             source={{ uri: thumbnail }}

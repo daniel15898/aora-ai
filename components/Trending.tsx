@@ -75,8 +75,6 @@ const TrendingItem = ({ activeItem, item }: TrendingItemPropsType) => {
   const [play, setPlay] = useState(false);
   const videoRef = useRef<Video>(null);
 
-
-
   return (
     <Animatable.View
       className="mr-5"
@@ -84,18 +82,16 @@ const TrendingItem = ({ activeItem, item }: TrendingItemPropsType) => {
       duration={500}
     >
       {play ? (
-        (console.log(item.video),
-        (
-          <Video
-            ref={videoRef}
-            source={{ uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" }}
-            className="w-52 h-72 rounded-[35px] mt-3 bg-white/10"
-            resizeMode={ResizeMode.COVER}
-            useNativeControls
-            shouldPlay={true}
-            isLooping
-          />
-        ))
+        <Video
+          ref={videoRef}
+          source={{
+            uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+          }}
+          className="w-52 h-72 rounded-[35px] mt-3 bg-white/10"
+          resizeMode={ResizeMode.COVER}
+          useNativeControls
+          shouldPlay
+        />
       ) : (
         <TouchableOpacity
           className="relative flex justify-center items-center"
