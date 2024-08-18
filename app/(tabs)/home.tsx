@@ -1,5 +1,4 @@
 import {
-  
   FlatList,
   Image,
   RefreshControl,
@@ -14,13 +13,15 @@ import SearchInput from "@/components/SearchInput";
 import Trending from "@/components/Trending";
 import EmptyState from "@/components/EmptyState";
 import useAppwrite from "@/hooks/useAppwrite";
-import { getAllPosts } from "@/lib/appwrite";
-
+import { getAllPosts, getLatestPosts } from "@/lib/appwrite";
+import VideoCard from "@/components/VideoCard";
+import { Models } from "react-native-appwrite";
 
 const Home = () => {
-
   const [refreshing, setRefreshing] = useState(false);
-  const {data:posts,refetch,isLoading} = useAppwrite(getAllPosts)
+  const { data: posts, refetch, isLoading } = useAppwrite(getAllPosts);
+  const { data: latestPosts } = useAppwrite(getLatestPosts);
+
   const onRefresh = async () => {
     setRefreshing(true);
     // re call videos => if any new videos appeard
@@ -32,11 +33,9 @@ const Home = () => {
     <SafeAreaView className="bg-primary h-full ">
       <FlatList
         data={posts}
-        keyExtractor={(item) => item?.id}
-        renderItem={({ item }) => (
-          <Text className="text-3xl text-white">{item.title}</Text>
-        )}
-        ListHeaderComponent={() => <PageHeader />}
+        keyExtractor={(item) => item.$id}
+        renderItem={({ item }) => <VideoCard video={item} />}
+        ListHeaderComponent={() => <PageHeader latestPosts={latestPosts} />}
         ListEmptyComponent={() => (
           <EmptyState
             title="No Videos Found"
@@ -58,7 +57,7 @@ const Home = () => {
 
 export default Home;
 
-const PageHeader = () => {
+const PageHeader = ({latestPosts}:{latestPosts:Models.Document[]}) => {
   return (
     <View className="my-6 px-4 space-y-6">
       <View className="justify-between items-start flex-row mb-6">
@@ -83,7 +82,7 @@ const PageHeader = () => {
           Latest Videos
         </Text>
 
-        <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }] ?? []} />
+        <Trending posts={latestPosts} />
       </View>
     </View>
   );

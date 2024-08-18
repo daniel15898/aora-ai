@@ -1,4 +1,11 @@
-import { Account, Avatars, Client, Databases, ID, Query } from "react-native-appwrite";
+import {
+  Account,
+  Avatars,
+  Client,
+  Databases,
+  ID,
+  Query,
+} from "react-native-appwrite";
 
 export const appwriteConfig = {
   endpoint: "https://cloud.appwrite.io/v1",
@@ -10,14 +17,15 @@ export const appwriteConfig = {
   storageId: "66b610f40018e357fc7c",
 };
 
-const {endpoint,
+const {
+  endpoint,
   platform,
   projectId,
   databaseId,
   userCollectionId,
   videoCollectionId,
   storageId,
-  } = appwriteConfig
+} = appwriteConfig;
 
 // Init your React Native SDK
 const client = new Client();
@@ -56,38 +64,39 @@ export const createUser = async (
       ID.unique(),
       { accountId: newAccount.$id, email, username, avatar: avatarUrl }
     );
-    return newUser
-  } catch (error:any) {
-    throw new Error(error.message)
+    return newUser;
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 };
 
 export const signIn = async (email: string, password: string) => {
   try {
-    
-
     const session = await account.createEmailPasswordSession(email, password);
-    
+
     return session;
-  } catch (error:any) {
-    throw new Error(error.message)
+  } catch (error: any) {
+    throw new Error(error.message);
   }
-}
+};
 
-export const getCurrentUser = async () =>{
-    try {
-        const currentAccount = await account.get()
-        if(!currentAccount) throw Error
+export const getCurrentUser = async () => {
+  try {
+    const currentAccount = await account.get();
+    if (!currentAccount) throw Error;
 
-        const currentUser = await databases.listDocuments(appwriteConfig.databaseId,appwriteConfig.userCollectionId,[Query.equal('accountId',currentAccount.$id)])
-        if(!currentUser) throw Error
+    const currentUser = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [Query.equal("accountId", currentAccount.$id)]
+    );
+    if (!currentUser) throw Error;
 
-        return currentUser.documents[0]
-    } catch (error:any) {
-        throw new Error(error.message)
-        
-    }
-}
+    return currentUser.documents[0];
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
 
 // Sign Out
 export async function signOut() {
@@ -95,18 +104,27 @@ export async function signOut() {
     const session = await account.deleteSession("current");
 
     return session;
-  } catch (error:any) {
+  } catch (error: any) {
     throw new Error(error.message);
   }
 }
 
-export const getAllPosts = async () =>{
+export const getAllPosts = async () => {
   try {
-    const posts = await databases.listDocuments(databaseId,videoCollectionId)
-    
-    return posts.documents
-  } catch (error:any) {
-    throw new Error(error.message)
-    
+    const posts = await databases.listDocuments(databaseId, videoCollectionId);
+
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error.message);
   }
-}
+};
+
+export const getLatestPosts = async () => {
+  try {
+    const posts = await databases.listDocuments(databaseId, videoCollectionId);
+
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
